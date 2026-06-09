@@ -49,3 +49,16 @@ These links assume this README has been copied to the generated repository root.
 ## License
 
 MIT
+
+## Development
+
+Use the published verification scripts before opening a release PR:
+
+- `npm run check` - tsc -p tsconfig.json --noEmit
+- `npm run test` - vitest run
+- `npm run build` - tsc -p tsconfig.json
+- `npm run smoke` - bash scripts/smoke.sh
+- `npm run package:smoke` - npm pack --dry-run
+- `npm run release:check` - npm run check && npm test && npm run build && npm run package:smoke
+
+`npm run release:check` is the broadest local readiness check when it is available.
