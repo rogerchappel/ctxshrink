@@ -4,10 +4,10 @@
   "description": "Local-first deterministic context shrinker for agent handoffs.",
   "type": "module",
   "bin": {
-    "ctxshrink": "./dist/cli.js"
+    "ctxshrink": "./dist/src/cli.js"
   },
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
