@@ -10,8 +10,8 @@
   "types": "./dist/src/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js"
     }
   },
   "files": [
@@ -28,8 +28,8 @@
     "check": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "smoke": "bash scripts/smoke.sh",
-    "package:smoke": "npm pack --dry-run",
-    "release:check": "npm run check && npm test && npm run build && npm run package:smoke"
+    "package:smoke": "npm run build && npm pack --dry-run && node --input-type=module -e \"import('ctxshrink').then((mod) => { if (typeof mod.estimateText !== 'function') throw new Error('estimateText export missing'); })\"",
+    "release:check": "npm run check && npm test && npm run build && npm run smoke && npm run package:smoke"
   },
   "keywords": [
     "context",
