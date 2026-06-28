@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Release readiness: document local verification, npm package metadata, and pack contents for the next public release.
+- Release readiness: add fixture-backed Vitest coverage for context estimates and aggregate totals.
 
 All notable changes to this project will be documented in this file.
 
