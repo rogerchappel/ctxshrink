@@ -17,11 +17,13 @@ npm install
 npm run build
 ```
 
-## Use
+## Quickstart
 
-Run the maintained checks while the CLI surface is still settling:
+Run the maintained checks and the fixture-backed smoke from a checkout:
 
 ```sh
+npm run build
+node dist/src/cli.js --help
 npm test
 npm run release:check
 ```
