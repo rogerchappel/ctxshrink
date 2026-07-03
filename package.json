@@ -29,7 +29,8 @@
     "test": "vitest run",
     "smoke": "bash scripts/smoke.sh",
     "package:smoke": "npm run build && test -f dist/src/cli.js && test -f dist/src/index.js && npm pack --dry-run && node --input-type=module -e \"import('ctxshrink').then((mod) => { if (typeof mod.estimateText !== 'function') throw new Error('estimateText export missing'); })\"",
-    "release:check": "npm run check && npm test && npm run build && npm run smoke && npm run package:smoke"
+    "release:check": "npm run check && npm test && npm run build && npm run smoke && npm run package:smoke",
+    "lint": "npm run check"
   },
   "keywords": [
     "context",
