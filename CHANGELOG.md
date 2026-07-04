@@ -1,10 +1,3 @@
-# Changelog
-
-## Unreleased
-
-- Release readiness: document local verification, npm package metadata, and pack contents for the next public release.
-- Release readiness: add fixture-backed Vitest coverage for context estimates and aggregate totals.
-
 All notable changes to this project will be documented in this file.
 
 This project follows the [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
@@ -15,6 +8,9 @@ format and uses semantic versioning when versioned releases are published.
 ### Added
 
 - Initial project setup.
+- Release readiness: document local verification, npm package metadata, and pack contents for the next public release.
+- Release readiness: add fixture-backed Vitest coverage for context estimates and aggregate totals.
+- Release readiness: inspect the npm tarball during package smoke checks so missing bin, API, type, license, security, or changelog files fail before publishing.
 
 ## Release Links
 
