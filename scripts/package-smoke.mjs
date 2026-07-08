@@ -14,6 +14,7 @@ const requiredFiles = [
   "dist/src/cli.js",
   "dist/src/index.js",
   "dist/src/index.d.ts",
+  "examples/basic-context.md",
   "README.md",
   "LICENSE",
   "SECURITY.md",
