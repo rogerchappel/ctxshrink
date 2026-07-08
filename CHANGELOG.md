@@ -10,6 +10,7 @@ format and uses semantic versioning when versioned releases are published.
 - Initial project setup.
 - Release readiness: document local verification, npm package metadata, and pack contents for the next public release.
 - Release readiness: add fixture-backed Vitest coverage for context estimates and aggregate totals.
+- Release readiness: add CLI regression coverage for stdin JSON, file JSON, and unreadable input errors.
 - Release readiness: inspect the npm tarball during package smoke checks so missing bin, API, type, license, security, or changelog files fail before publishing.
 
 ## Release Links
