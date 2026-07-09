@@ -32,6 +32,15 @@ The package exposes a `ctxshrink` binary from the built `dist` output. Until
 the CLI has broader fixture coverage, prefer running it from a pinned checkout
 and keep generated manifests under review.
 
+After installing the package, verify the installed command and run the same
+local summary path:
+
+```sh
+ctxshrink --help
+ctxshrink --version
+ctxshrink summarize README.md --format markdown
+```
+
 ## Verify
 
 Run the local validation script before opening a pull request:
