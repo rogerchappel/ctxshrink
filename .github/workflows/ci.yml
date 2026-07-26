@@ -20,6 +20,8 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: npm run audit
+        run: npm run audit
       - name: npm run check
         run: npm run check
       - name: npm run build
