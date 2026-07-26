@@ -72,11 +72,12 @@ MIT
 
 Use the published verification scripts before opening a release PR:
 
+- `npm run audit` - fails on high- or critical-severity dependency advisories
 - `npm run check` - tsc -p tsconfig.json --noEmit
 - `npm run test` - vitest run
 - `npm run build` - tsc -p tsconfig.json
 - `npm run smoke` - bash scripts/smoke.sh
 - `npm run package:smoke` - builds the package, inspects the npm tarball, and imports the public API
-- `npm run release:check` - npm run check && npm test && npm run build && npm run smoke && npm run package:smoke
+- `npm run release:check` - runs the dependency audit, type check, tests, build, smoke test, and package smoke test
 
 `npm run release:check` is the broadest local readiness check when it is available.
