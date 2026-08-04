@@ -33,12 +33,13 @@ the CLI has broader fixture coverage, prefer running it from a pinned checkout
 and keep generated manifests under review.
 
 After installing the package, verify the installed command and run the same
-local summary path:
+local estimate path:
 
 ```sh
 ctxshrink --help
 ctxshrink --version
-ctxshrink summarize README.md --format markdown
+ctxshrink estimate README.md
+ctxshrink estimate README.md --json
 ```
 
 ## Verify
