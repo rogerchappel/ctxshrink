@@ -1,5 +1,7 @@
-import { execFileSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { execFileSync, spawnSync } from "node:child_process";
+import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 
 const output = execFileSync("npm", ["pack", "--dry-run", "--json"], {
   encoding: "utf8"
@@ -37,3 +39,41 @@ if (missingBins.length > 0) {
 }
 
 console.log(`package smoke ok: ${pack.filename} includes ${pack.files.length} files`);
+
+const installDirectory = mkdtempSync(join(tmpdir(), "ctxshrink-package-smoke-"));
+try {
+  const packOutput = execFileSync(
+    "npm",
+    ["pack", "--json", "--pack-destination", installDirectory],
+    { encoding: "utf8" }
+  );
+  const [packed] = JSON.parse(packOutput);
+  const tarball = join(installDirectory, packed.filename);
+
+  execFileSync("npm", ["install", "--ignore-scripts", tarball], {
+    cwd: installDirectory,
+    stdio: "pipe"
+  });
+
+  const command = join(installDirectory, "node_modules", ".bin", "ctxshrink");
+  const estimateOutput = execFileSync(command, ["estimate", "README.md", "--json"], {
+    cwd: process.cwd(),
+    encoding: "utf8"
+  });
+  const estimate = JSON.parse(estimateOutput);
+  if (estimate.inputs?.[0]?.path !== "README.md") {
+    throw new Error("installed ctxshrink estimate command returned unexpected output");
+  }
+
+  const obsoleteCommand = spawnSync(command, ["summarize", "README.md"], {
+    cwd: process.cwd(),
+    encoding: "utf8"
+  });
+  if (obsoleteCommand.status === 0) {
+    throw new Error("obsolete ctxshrink summarize command unexpectedly succeeded");
+  }
+
+  console.log("installed CLI smoke ok: estimate succeeds and summarize is rejected");
+} finally {
+  rmSync(installDirectory, { recursive: true, force: true });
+}
