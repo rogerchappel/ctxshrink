@@ -5,6 +5,10 @@ format and uses semantic versioning when versioned releases are published.
 
 ## [Unreleased]
 
+### Changed
+
+- Update the Vitest development toolchain so clean installs use a patched nanoid release without the high-severity advisory.
+
 ### Added
 
 - Initial project setup.
