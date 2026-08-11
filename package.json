@@ -31,7 +31,8 @@
     "test": "vitest run",
     "smoke": "bash scripts/smoke.sh",
     "package:smoke": "npm run build && node scripts/package-smoke.mjs && node --input-type=module -e \"import('ctxshrink').then((mod) => { if (typeof mod.estimateText !== 'function') throw new Error('estimateText export missing'); })\"",
-    "release:check": "npm run audit && npm run check && npm test && npm run build && npm run smoke && npm run package:smoke",
+    "release:metadata": "node scripts/release-metadata.mjs",
+    "release:check": "npm run audit && npm run check && npm test && npm run build && npm run smoke && npm run package:smoke && npm run release:metadata -- --tag v$npm_package_version",
     "lint": "npm run check"
   },
   "keywords": [
