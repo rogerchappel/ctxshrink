@@ -10,12 +10,19 @@ security posture before using it in production.
 
 ## Install
 
-Install dependencies from a checkout:
+The npm registry does not contain a release yet. Until the first tagged release
+is published, install from a pinned source checkout:
 
 ```sh
-npm install
+npm ci
 npm run build
+npm link
 ```
+
+After a tagged release is available on npm, install the registry package with
+`npm install --global ctxshrink@<version>`. Do not treat `npm install` in a
+source checkout as a registry installation: it installs this repository's
+development dependencies and requires a separate build.
 
 ## Quickstart
 
@@ -79,6 +86,7 @@ Use the published verification scripts before opening a release PR:
 - `npm run build` - tsc -p tsconfig.json
 - `npm run smoke` - bash scripts/smoke.sh
 - `npm run package:smoke` - builds the package, inspects the npm tarball, and imports the public API
-- `npm run release:check` - runs the dependency audit, type check, tests, build, smoke test, and package smoke test
+- `npm run release:metadata -- --tag v0.1.0` - checks the tag/version invariant, trusted-publishing workflow metadata, release ordering, and publish command without publishing
+- `npm run release:check` - runs the dependency audit, type check, tests, build, smoke test, package smoke test, and release metadata check
 
 `npm run release:check` is the broadest local readiness check when it is available.
