@@ -11,6 +11,8 @@ export const defaultHeuristic: TokenHeuristic = {
 };
 
 export function estimateText(content: string, heuristic = defaultHeuristic): Estimate {
+  validateHeuristic(heuristic);
+
   const chars = content.length;
   const bytes = Buffer.byteLength(content, "utf8");
   const lines = content.length === 0 ? 0 : content.split(/\r\n|\r|\n/).length;
@@ -23,6 +25,16 @@ export function estimateText(content: string, heuristic = defaultHeuristic): Est
     lines,
     tokens: Math.max(0, lexicalTokens + structuralTokens)
   };
+}
+
+function validateHeuristic(heuristic: TokenHeuristic): void {
+  if (!Number.isFinite(heuristic.charsPerToken) || heuristic.charsPerToken <= 0) {
+    throw new RangeError("charsPerToken must be a finite number greater than 0");
+  }
+
+  if (!Number.isFinite(heuristic.lineCost) || heuristic.lineCost < 0) {
+    throw new RangeError("lineCost must be a finite, non-negative number");
+  }
 }
 
 export function emptyEstimate(): Estimate {

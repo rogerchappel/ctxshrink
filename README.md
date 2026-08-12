@@ -49,6 +49,25 @@ ctxshrink estimate README.md
 ctxshrink estimate README.md --json
 ```
 
+## Custom token estimates
+
+The public API accepts an optional heuristic when the default estimate does
+not fit a model or corpus:
+
+```js
+import { estimateText } from "ctxshrink";
+
+const estimate = estimateText("one\ntwo", {
+  charsPerToken: 3.5,
+  lineCost: 0.1
+});
+```
+
+`charsPerToken` must be finite and greater than zero. `lineCost` must be finite
+and non-negative, so zero is supported when line structure should add no token
+cost. Invalid custom heuristics throw a `RangeError`; successful estimates
+contain only finite, non-negative counts.
+
 ## Verify
 
 Run the local validation script before opening a pull request:
