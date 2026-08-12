@@ -8,6 +8,7 @@ format and uses semantic versioning when versioned releases are published.
 ### Changed
 
 - Update the Vitest development toolchain so clean installs use a patched nanoid release without the high-severity advisory.
+- Reject invalid custom token heuristics instead of returning non-finite estimates.
 
 ### Added
 
