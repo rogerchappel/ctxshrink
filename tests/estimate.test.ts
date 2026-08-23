@@ -46,6 +46,19 @@ describe("estimateText", () => {
     expect(estimate.tokens).toBe(tokens);
     expect(Object.values(estimate).every((value) => Number.isFinite(value) && value >= 0)).toBe(true);
   });
+
+  it("rejects heuristics that overflow token arithmetic for non-empty content", () => {
+    expect(() => estimateText("a", { charsPerToken: Number.MIN_VALUE, lineCost: 0 })).toThrow(
+      new RangeError("heuristic produces a non-finite token estimate for this content")
+    );
+  });
+
+  it("serializes successful estimates without replacing non-finite values", () => {
+    const estimate = estimateText("a", { charsPerToken: 1, lineCost: Number.MAX_VALUE });
+
+    expect(JSON.parse(JSON.stringify(estimate))).toEqual(estimate);
+    expect(Object.values(estimate).every(Number.isFinite)).toBe(true);
+  });
 });
 
 describe("sumEstimates", () => {
