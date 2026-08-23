@@ -65,8 +65,9 @@ const estimate = estimateText("one\ntwo", {
 
 `charsPerToken` must be finite and greater than zero. `lineCost` must be finite
 and non-negative, so zero is supported when line structure should add no token
-cost. Invalid custom heuristics throw a `RangeError`; successful estimates
-contain only finite, non-negative counts.
+cost. Invalid custom heuristics, including values that make token arithmetic
+overflow for the supplied content, throw a `RangeError`. Successful estimates
+contain only finite, non-negative counts and serialize to JSON without loss.
 
 ## Verify
 

@@ -18,12 +18,17 @@ export function estimateText(content: string, heuristic = defaultHeuristic): Est
   const lines = content.length === 0 ? 0 : content.split(/\r\n|\r|\n/).length;
   const lexicalTokens = Math.ceil(chars / heuristic.charsPerToken);
   const structuralTokens = Math.ceil(lines * heuristic.lineCost);
+  const tokens = lexicalTokens + structuralTokens;
+
+  if (!Number.isFinite(tokens)) {
+    throw new RangeError("heuristic produces a non-finite token estimate for this content");
+  }
 
   return {
     bytes,
     chars,
     lines,
-    tokens: Math.max(0, lexicalTokens + structuralTokens)
+    tokens: Math.max(0, tokens)
   };
 }
 
