@@ -16,6 +16,7 @@ format and uses semantic versioning when versioned releases are published.
 - Release readiness: document local verification, npm package metadata, and pack contents for the next public release.
 - Release readiness: add fixture-backed Vitest coverage for context estimates and aggregate totals.
 - Release readiness: add CLI regression coverage for stdin JSON, file JSON, and unreadable input errors.
+- Release readiness: add CLI regression coverage rejecting unknown subcommands such as `summarize` while the documented `estimate` quickstart path works.
 - Release readiness: inspect the npm tarball during package smoke checks so missing bin, API, type, license, security, or changelog files fail before publishing.
 - Release readiness: validate tag and registry availability before publishing a provenance-bearing npm tarball, then create the GitHub release only after npm succeeds.
 
