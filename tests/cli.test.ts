@@ -63,4 +63,28 @@ describe("ctxshrink CLI", () => {
     expect(result.stderr).toContain("ctxshrink:");
     expect(result.stderr).toContain(missingPath);
   });
+
+  it("rejects unknown subcommands such as summarize", () => {
+    const result = spawnSync(
+      process.execPath,
+      [cliPath, "summarize", "README.md", "--format", "markdown"],
+      { encoding: "utf8" }
+    );
+
+    expect(result.status).toBe(1);
+    expect(result.stdout).toBe("");
+    expect(result.stderr).toContain("unknown command");
+    expect(result.stderr).toContain("summarize");
+  });
+
+  it("estimates the documented quickstart path", () => {
+    const result = spawnSync(process.execPath, [cliPath, "estimate", "README.md"], {
+      encoding: "utf8"
+    });
+
+    expect(result.status).toBe(0);
+    expect(result.stderr).toBe("");
+    expect(result.stdout).toContain("README.md:");
+    expect(result.stdout).toContain("total:");
+  });
 });
