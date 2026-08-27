@@ -47,13 +47,23 @@ export function emptyEstimate(): Estimate {
 }
 
 export function sumEstimates(estimates: Estimate[]): Estimate {
-  return estimates.reduce<Estimate>(
-    (total, item) => ({
-      bytes: total.bytes + item.bytes,
-      chars: total.chars + item.chars,
-      lines: total.lines + item.lines,
-      tokens: total.tokens + item.tokens
-    }),
-    emptyEstimate()
-  );
+  const fields = ["bytes", "chars", "lines", "tokens"] as const;
+  const total = emptyEstimate();
+
+  estimates.forEach((estimate, index) => {
+    for (const field of fields) {
+      const value = estimate[field];
+      if (!Number.isFinite(value) || value < 0) {
+        throw new RangeError(`estimate[${index}].${field} must be a finite, non-negative number`);
+      }
+
+      const sum = total[field] + value;
+      if (!Number.isFinite(sum)) {
+        throw new RangeError(`sumEstimates overflowed ${field}`);
+      }
+      total[field] = sum;
+    }
+  });
+
+  return total;
 }
