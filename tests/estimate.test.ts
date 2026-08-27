@@ -75,4 +75,27 @@ describe("sumEstimates", () => {
       tokens: 8
     });
   });
+
+  it.each([
+    ["negative", { bytes: -1, chars: 0, lines: 0, tokens: 0 }, "estimate[0].bytes"],
+    ["NaN", { bytes: 0, chars: Number.NaN, lines: 0, tokens: 0 }, "estimate[0].chars"],
+    ["infinite", { bytes: 0, chars: 0, lines: Number.POSITIVE_INFINITY, tokens: 0 }, "estimate[0].lines"]
+  ])("rejects %s public estimate operands", (_case, estimate, field) => {
+    expect(() => sumEstimates([estimate])).toThrow(
+      new RangeError(`${field} must be a finite, non-negative number`)
+    );
+  });
+
+  it("rejects aggregate overflow instead of producing JSON nulls", () => {
+    const maximum = {
+      bytes: Number.MAX_VALUE,
+      chars: Number.MAX_VALUE,
+      lines: Number.MAX_VALUE,
+      tokens: Number.MAX_VALUE
+    };
+
+    expect(() => sumEstimates([maximum, maximum])).toThrow(
+      new RangeError("sumEstimates overflowed bytes")
+    );
+  });
 });
