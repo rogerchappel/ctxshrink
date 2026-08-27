@@ -9,6 +9,7 @@ format and uses semantic versioning when versioned releases are published.
 
 - Update the Vitest development toolchain so clean installs use a patched nanoid release without the high-severity advisory.
 - Reject invalid custom token heuristics instead of returning non-finite estimates.
+- Reject invalid or overflowing aggregate estimate counts instead of returning values that serialize as `null`.
 
 ### Added
 

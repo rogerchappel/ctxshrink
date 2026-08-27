@@ -69,6 +69,12 @@ cost. Invalid custom heuristics, including values that make token arithmetic
 overflow for the supplied content, throw a `RangeError`. Successful estimates
 contain only finite, non-negative counts and serialize to JSON without loss.
 
+`sumEstimates` applies the same validity guarantee to every public `Estimate`
+operand and to each accumulated field. A negative or non-finite operand, or an
+addition that overflows a count, throws a `RangeError` identifying the invalid
+field instead of returning a value that JSON would silently serialize as
+`null`. Empty input still returns the all-zero estimate.
+
 ## Verify
 
 Run the local validation script before opening a pull request:
