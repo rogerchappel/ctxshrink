@@ -38,6 +38,11 @@ if (missingBins.length > 0) {
   process.exit(1);
 }
 
+if (!packageJson.engines?.node) {
+  console.error("Package smoke failed; package.json is missing engines.node declaration");
+  process.exit(1);
+}
+
 console.log(`package smoke ok: ${pack.filename} includes ${pack.files.length} files`);
 
 const installDirectory = mkdtempSync(join(tmpdir(), "ctxshrink-package-smoke-"));
