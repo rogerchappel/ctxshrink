@@ -53,6 +53,9 @@
   },
   "homepage": "https://github.com/rogerchappel/ctxshrink#readme",
   "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
     "commander": "^14.0.3",
     "fast-glob": "^3.3.3",
