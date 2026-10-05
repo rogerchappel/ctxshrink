@@ -60,6 +60,18 @@ try {
     stdio: "pipe"
   });
 
+  const cjsProbe = spawnSync(
+    process.execPath,
+    ["-e", "require('ctxshrink')"],
+    { cwd: installDirectory, encoding: "utf8" }
+  );
+  if (cjsProbe.status === 0) {
+    throw new Error("CommonJS require unexpectedly succeeded despite no require export condition");
+  }
+  if (!/ERR_PACKAGE_PATH_NOT_EXPORTED/.test(cjsProbe.stderr)) {
+    throw new Error(`CommonJS require failed for an unexpected reason:\n${cjsProbe.stderr}`);
+  }
+
   const command = join(installDirectory, "node_modules", ".bin", "ctxshrink");
   const estimateOutput = execFileSync(command, ["estimate", "README.md", "--json"], {
     cwd: process.cwd(),
