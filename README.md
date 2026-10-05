@@ -54,6 +54,10 @@ ctxshrink estimate README.md --json
 The public API accepts an optional heuristic when the default estimate does
 not fit a model or corpus:
 
+The public root entrypoint supports ECMAScript modules. CommonJS `require()` is
+not supported; the package export map intentionally provides no `require`
+condition.
+
 ```js
 import { estimateText } from "ctxshrink";
 
